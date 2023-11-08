@@ -17,18 +17,21 @@
         <div><a href="{% url 'homepage' %}?q={{topic.name}}">{{ topic }}</a></div>
         {% endfor %}
     </div>
-    <div></div>
+    <div><h5>{{ room_count }} rooms available</h5>
     <a href="{% url 'create-room' %}"> Criar Room</a>
     <div>{% for sala in salas %}
          <div>
+            {% if request.user == room.host %}
             <a href="{% url 'update-room' sala.id %}">Editar</a>
             <a href="{% url 'delete-room' sala.id %}">Deletar</a>
+            {% endif %}
             <span>@{{ sala.host.username }}</span>
             <h5>{{ sala.id }} -- <a href='/sala/{{ sala.id }}'> {{ sala.name }}</a></h5>
             <small>{{ sala.topic.name }}</small>
          </div><hr>
 
          {% endfor %}
+         </div>
     </div>
 </div>
 {% endblock %}
